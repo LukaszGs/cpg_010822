@@ -1,4 +1,4 @@
-package com.for_comprehension.function;
+package com.for_comprehension.function.l1_function;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
