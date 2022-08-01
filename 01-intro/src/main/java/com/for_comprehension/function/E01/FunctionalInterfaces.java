@@ -1,7 +1,9 @@
 package com.for_comprehension.function.E01;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
@@ -16,45 +18,53 @@ final class FunctionalInterfaces {
      * @return a constant supplier returning 42
      */
     static Supplier<Integer> L1_toConstant() {
-        return () -> {
-            throw new RuntimeException("TODO");
+        /*
+        return new Supplier<Integer>() {
+
+            @Override
+            public Integer get() {
+                return 42;
+            }
         };
+        */
+
+        return () -> 42;
     }
 
     /**
      * @return a function that takes an input String and returns its uppercased version
      */
     static Function<String, String> L2_toUpperCase() {
-        return s -> {
-            throw new RuntimeException("TODO");
-        };
+        return String::toUpperCase;
     }
 
     /**
      * @return a function that converts strings to longs
      */
     static Function<String, Long> L3_toLong() {
-        return s -> {
-            throw new RuntimeException("TODO");
-        };
+        return Long::valueOf;
     }
 
     /**
      * @return a predicate that returns true if integer is bigger than 42
      */
     static IntPredicate L4_to42IntegerPredicate() {
-        return i -> {
-            throw new RuntimeException("TODO");
-        };
+        return i -> i > 42;
     }
 
     /**
      * @return a higher-order function that takes an integer and returns a predicate validating if the input is bigger than the provided value
      */
     static Function<Integer, Predicate<Integer>> L5_toIntegerPredicate() {
-        return i -> {
-            throw new RuntimeException("TODO");
-        };
+        return param -> (i -> i > param);
+        /*
+        return param -> new Predicate<Integer>() {
+
+            @Override
+            public boolean test(Integer i) {
+                return i > param;
+            }
+        };*/
     }
 
     /**
@@ -62,7 +72,12 @@ final class FunctionalInterfaces {
      */
     static Function<String, URI> L6_toURI() {
         return str -> {
-            throw new RuntimeException("TODO");
+            try {
+                return new URI(str);
+            }
+            catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         };
     }
 
@@ -70,9 +85,14 @@ final class FunctionalInterfaces {
      * @return a function that takes a Supplier instance and converts it into a Callable instance
      */
     static <T> Function<Supplier<T>, Callable<T>> L7_toCallable() {
-        return s -> {
-            throw new RuntimeException("TODO");
-        };
+        return supplier -> supplier::get;
+        /*return supplier -> new Callable<T>() {
+
+            @Override
+            public T call() throws Exception {
+                return supplier.get();
+            }
+        };*/
     }
 
     /**
@@ -80,8 +100,7 @@ final class FunctionalInterfaces {
      * the second one is applied directly to the result of the application of the first one
      */
     static <T> BinaryOperator<Function<T, T>> L8_functionComposition() {
-        return (f1, f2) -> {
-            throw new RuntimeException("TODO");
-        };
+        return Function::andThen;
+//        return (f1, f2) -> t -> f2.apply(f1.apply(t));
     }
 }
