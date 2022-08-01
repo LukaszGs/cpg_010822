@@ -3,12 +3,27 @@ package com.for_comprehension.function;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
-class HelloWorld {
+class LazyWithSupplier {
 
-    public static void main(String[] args) {
-
+    public static void main2(String[] args) {
         int v = ThreadLocalRandom.current().nextInt();
         processEager(v);
+
+        Supplier<Integer> vs = () -> {
+            try {
+                Thread.sleep(5000);
+            }
+            catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return ThreadLocalRandom.current().nextInt();
+        };
+        processLazy(vs);
+
+    }
+
+    public static void main(String[] args) {
+        processEager(ThreadLocalRandom.current().nextInt());
 
         processLazy(() -> {
             try {
@@ -21,8 +36,6 @@ class HelloWorld {
         });
 
     }
-
-
 
     public static int processEager(int v) {
         if (ThreadLocalRandom.current().nextInt() % 2 == 1) {
