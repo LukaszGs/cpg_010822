@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 class HelloWorld {
 
     public static void main(String[] args) {
-
         int v = ThreadLocalRandom.current().nextInt();
         processEager(v);
 

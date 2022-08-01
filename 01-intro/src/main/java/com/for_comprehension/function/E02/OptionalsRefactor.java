@@ -2,33 +2,31 @@ package com.for_comprehension.function.E02;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Map;
+import java.util.Optional;
 
 class OptionalsRefactor {
 
-    private Person findPerson(int id) {
-        switch(id) {
-            case 1:
-                return new Person("James",48, 193, LocalDate.of(2000, Month.NOVEMBER, 1));
-            case 2:
-                return new Person("John", 62, 169, LocalDate.of(1989, Month.OCTOBER, 21));
-            case 0:
-                return null;
-            default:
-                return null;
-        }
+    private Optional<Person> findPerson(int id) {
+        var map = Map.of(
+            1, new Person("James", 48, 193, LocalDate.of(2000, Month.NOVEMBER, 1)),
+            2, new Person("John", 62, 169, LocalDate.of(1989, Month.OCTOBER, 21)));
+        return Optional.ofNullable(map.get(id));
     }
 
-    private String findAddress(Person person) {
-        if (person.getBirthDate().isAfter(LocalDate.of(2000, Month.JANUARY, 1))) {
-            return "";
-        }
-        if (person.getBirthDate().isAfter(LocalDate.of(1980, Month.JANUARY, 1))) {
-            return " Some St.   ";
-        }
-        return null;
+    private Optional<String> findAddress(Person person) {
+        return Optional.ofNullable(person)
+            .filter(p -> p.getBirthDate().isAfter(LocalDate.of(1980, Month.JANUARY, 1)))
+            .map(p -> " Some St.   ");
     }
 
-    private String findAddressById(int id) {
+    private Optional<String> findAddressById(int id) {
+        return findPerson(id)
+            .filter(p -> p.getHeight() > 168)
+            .flatMap(this::findAddress)
+            .filter(a -> !a.isEmpty())
+            .map(String::trim);
+   /*
         final Person personOrNull = findPerson(id);
         if (personOrNull != null) {
             if (personOrNull.getHeight() > 168) {
@@ -40,7 +38,7 @@ class OptionalsRefactor {
                 }
             }
         }
-        return null;
+        return null;*/
     }
 
 
@@ -48,13 +46,13 @@ class OptionalsRefactor {
     // DON"T CHANGE ANYTHING BEYOND THIS POINT
     // ***
 
-    private class Person {
+    public static class Person {
         private final String name;
         private final int weight;
         private final int height;
         private final LocalDate birthDate;
 
-        private Person(String name, int weight, int height, LocalDate birthDate) {
+        public  Person(String name, int weight, int height, LocalDate birthDate) {
             this.name = name;
             this.weight = weight;
             this.height = height;
