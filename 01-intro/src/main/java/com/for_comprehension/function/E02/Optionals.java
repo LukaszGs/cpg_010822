@@ -22,9 +22,7 @@ class Optionals {
      * WARNING: this is an anti-pattern (unless you know what you're doing)
      */
     static Function<Integer, Person> L1_bruteForceGet() {
-        return id -> {
-            throw new RuntimeException("TODO");
-        };
+        return id -> findOneById(id).orElseThrow();
     }
 
     /**
@@ -33,30 +31,36 @@ class Optionals {
      *
      */
     static Function<Integer, Person> L2_customException() {
-        return id -> {
-            throw new RuntimeException("TODO");
+        return id -> findOneById(id).orElseThrow(IllegalStateException::new);
 
-        };
     }
 
     /**
      * Get {@link Person#name} if found or else return {@link this#DEFAULT}
      */
     static Function<Integer, String> L3_defaultValue() {
-        return id -> {
-            throw new RuntimeException("TODO");
+        return id -> findOneById(id)
+            .map(Person::getName)
+            .orElse(DEFAULT);
 
-        };
+        /*return id -> findOneById(id)
+            .map(new Function<Person, String>() {
+
+                @Override
+                public String apply(Person person) {
+                    return person.getName();
+                }
+            })
+            .orElse(DEFAULT);*/
     }
 
     /**
      * Get {@link Person#name} if found or else return the value returned by provided method (represented by Supplier<String)
      */
     static BiFunction<Integer, Supplier<String>, String> L4_defaultValueMethodResult() {
-        return (id, function) -> {
-            throw new RuntimeException("TODO");
-
-        };
+        return (id, supplier) -> findOneById(id)
+            .map(Person::getName)
+            .orElseGet(supplier);
     }
 
     /**
@@ -66,10 +70,11 @@ class Optionals {
      * Hint: {@link Optional#filter}
      */
     static Function<Integer, String> L5_processValue() {
-        return id -> {
-            throw new RuntimeException("TODO");
-
-        };
+        return id -> findOneById(id)
+            .map(Person::getName)
+            .filter(name -> !name.isEmpty())
+            .map(String::toUpperCase)
+            .orElse(DEFAULT);
     }
 
     /**
@@ -80,9 +85,11 @@ class Optionals {
      * Hint: {@link Optional#flatMap(Function)}
      */
     static Function<Integer, Integer> L6_nestedOptionals() {
-        return id -> {
-            throw new RuntimeException("TODO");
-        };
+        return id -> findOneById(id)
+            .map(Person::getName)
+            .filter(name -> !name.isEmpty())
+            .flatMap(Optionals::findAgeByName)
+            .orElse(42);
     }
 
     static class Person {
