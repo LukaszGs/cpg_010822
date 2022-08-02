@@ -1,6 +1,7 @@
 package com.for_comprehension.function.E01;
 
 import java.net.URI;
+import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -10,12 +11,15 @@ import java.util.function.Supplier;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.generator.java.lang.Encoded;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.assertj.core.api.Assertions;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @RunWith(JUnitQuickcheck.class)
 public class FunctionalInterfacesTest {
@@ -91,4 +95,5 @@ public class FunctionalInterfacesTest {
         Integer result = combiner.apply(f1, f2).apply(input);
         Assertions.assertThat(result).isEqualTo((input + 2) * 2);
     }
+
 }
