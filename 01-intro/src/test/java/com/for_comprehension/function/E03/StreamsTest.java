@@ -131,7 +131,7 @@ public class StreamsTest {
     public void l10_rotate() {
 
         // given
-        final List<Integer> input = asList(1, 2, 3, 4);
+        final List<Integer> input = asList();
         final int n = 3;
 
         // when
