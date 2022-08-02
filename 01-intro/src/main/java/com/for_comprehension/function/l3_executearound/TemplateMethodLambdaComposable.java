@@ -52,8 +52,4 @@ public class TemplateMethodLambdaComposable {
             return result;
         };
     }
-
-    // public static costam timed(costam)
-    // loguje czas wywolania metody
-    // zwraca oryginalny rezultat metody
 }

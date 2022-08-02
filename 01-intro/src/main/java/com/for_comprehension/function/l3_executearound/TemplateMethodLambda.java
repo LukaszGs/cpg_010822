@@ -43,8 +43,4 @@ public class TemplateMethodLambda {
         runnable.run();
         System.out.println("Exiting method");
     }
-
-    // public static costam timed(costam)
-    // loguje czas wywolania metody
-    // zwraca oryginalny rezultat metody
 }
