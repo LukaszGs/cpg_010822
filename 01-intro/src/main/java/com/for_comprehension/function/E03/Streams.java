@@ -2,7 +2,9 @@ package com.for_comprehension.function.E03;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -115,10 +117,21 @@ class Streams {
     // [1,2,3,4] -> [2,3,4,1] -> [3,4,1,2] -> [4,1,2,3] -> [1,2,3,4]
     // [1,2,3,4,1,2,3,4]
     static UnaryOperator<List<Integer>> L10_rotate(int n) {
-        return integers -> Stream.concat(integers.stream(), integers.stream())
-            .skip(n % integers.size())
-            .limit(integers.size())
-            .collect(Collectors.toList());
+        return integers -> {
+            if (integers.isEmpty()) {
+                return Collections.emptyList();
+            }
+
+            if (n % integers.size() == 0) {
+                return List.copyOf(integers);
+            }
+
+            return Stream.concat(integers.stream(), integers.stream())
+                .skip(n % integers.size())
+                .limit(integers.size())
+                .collect(Collectors.toUnmodifiableList());
+        };
+
     }
 
     /**
@@ -127,7 +140,7 @@ class Streams {
     static Predicate<List<Double>> L11_sum() throws IllegalStateException {
         return doubles -> doubles.stream()
             .reduce(Double::sum)
-//            .flatMap(sum -> sum == 100 ? Optional.of(true) : Optional.empty())
+            //            .flatMap(sum -> sum == 100 ? Optional.of(true) : Optional.empty())
             .map(sum -> sum == 100)
             .filter(result -> result)
             .orElseThrow(IllegalStateException::new);
@@ -144,8 +157,8 @@ class Streams {
             .flatMap(Optional::stream)
             //.flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
 
-//            .filter(Optional::isPresent)
-//            .map(Optional::get)
+            //            .filter(Optional::isPresent)
+            //            .map(Optional::get)
             .collect(Collectors.toList());
 
     }
