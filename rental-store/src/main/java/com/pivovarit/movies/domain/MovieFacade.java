@@ -1,29 +1,22 @@
-package com.pivovarit.movies.service;
+package com.pivovarit.movies.domain;
 
-import com.pivovarit.movies.MovieConverter;
-import com.pivovarit.movies.MovieDescriptionsRepository;
-import com.pivovarit.movies.MoviePriceCalculator;
-import com.pivovarit.movies.api.MovieAddRequest;
-import com.pivovarit.movies.api.MovieDto;
-import com.pivovarit.movies.domain.Movie;
-import com.pivovarit.movies.domain.MovieId;
-import com.pivovarit.movies.domain.MovieType;
-import com.pivovarit.movies.repository.MovieRepository;
+import com.pivovarit.movies.domain.api.MovieAddRequest;
+import com.pivovarit.movies.domain.api.MovieDto;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.pivovarit.movies.MovieConverter.from;
+import static com.pivovarit.movies.domain.MovieConverter.from;
 
-public class MovieService {
+public class MovieFacade {
 
     private final MovieRepository movieRepository;
     private final MoviePriceCalculator moviePriceCalculator;
     private final MovieDescriptionsRepository movieDescriptionsRepository;
 
-    public MovieService(MovieRepository movieRepository, MoviePriceCalculator moviePriceCalculator, MovieDescriptionsRepository movieDescriptionsRepository) {
+    public MovieFacade(MovieRepository movieRepository, MoviePriceCalculator moviePriceCalculator, MovieDescriptionsRepository movieDescriptionsRepository) {
         this.movieRepository = movieRepository;
         this.moviePriceCalculator = moviePriceCalculator;
         this.movieDescriptionsRepository = movieDescriptionsRepository;

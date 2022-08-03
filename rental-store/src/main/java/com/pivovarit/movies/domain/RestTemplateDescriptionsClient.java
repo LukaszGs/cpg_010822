@@ -1,4 +1,4 @@
-package com.pivovarit.movies;
+package com.pivovarit.movies.domain;
 
 import org.springframework.web.client.RestTemplate;
 

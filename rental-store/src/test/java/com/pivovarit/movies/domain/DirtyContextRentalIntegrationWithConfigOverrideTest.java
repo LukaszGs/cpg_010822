@@ -1,7 +1,5 @@
 package com.pivovarit.movies.domain;
 
-import com.pivovarit.movies.repository.InMemoryMovieRepository;
-import com.pivovarit.movies.repository.MovieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

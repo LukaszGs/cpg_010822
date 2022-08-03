@@ -1,10 +1,6 @@
-package com.pivovarit.movies.config;
+package com.pivovarit.movies.domain;
 
 import com.pivovarit.movies.HelloWorldService;
-import com.pivovarit.movies.MovieDescriptionsRepository;
-import com.pivovarit.movies.MoviePriceCalculator;
-import com.pivovarit.movies.repository.MovieRepository;
-import com.pivovarit.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @Configuration
-public class RentalStoreConfiguration {
+class RentalStoreConfiguration {
 
     @Bean
     public RestTemplate restTemplate(List<HttpMessageConverter<?>> messageConverters) {
@@ -36,11 +32,11 @@ public class RentalStoreConfiguration {
     }
 
     @Bean
-    public MovieService movieService(
+    public MovieFacade movieService(
       MovieRepository movieRepository,
       MoviePriceCalculator moviePriceCalculator,
       MovieDescriptionsRepository movieDescriptionsRepository) {
-        return new MovieService(movieRepository, moviePriceCalculator, movieDescriptionsRepository);
+        return new MovieFacade(movieRepository, moviePriceCalculator, movieDescriptionsRepository);
     }
 
     @Bean

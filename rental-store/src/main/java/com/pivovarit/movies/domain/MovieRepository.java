@@ -1,12 +1,10 @@
-package com.pivovarit.movies.repository;
-
-import com.pivovarit.movies.domain.Movie;
-import com.pivovarit.movies.domain.MovieId;
+package com.pivovarit.movies.domain;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface MovieRepository {
+interface MovieRepository {
+
     MovieId save(Movie movie);
 
     Collection<Movie> findAll();
@@ -16,4 +14,5 @@ public interface MovieRepository {
     Optional<Movie> findById(MovieId id);
 
     boolean delete(MovieId id);
+
 }
