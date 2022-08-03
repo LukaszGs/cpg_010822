@@ -1,15 +1,9 @@
-package com.for_comprehension.function;
+package com.for_comprehension.function.l5_threads;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class Scratchpad {
+public class L4_Volatile {
 
     private static volatile Long foo = 42L;
 
