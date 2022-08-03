@@ -1,4 +1,4 @@
-package com.for_comprehension.function;
+package com.for_comprehension.function.l5_threads;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Scratchpad {
+public class L3_ThreadPoolDemo {
 
     public static void main(String[] args) {
         ExecutorService foo = new ThreadPoolExecutor(4, 20,
